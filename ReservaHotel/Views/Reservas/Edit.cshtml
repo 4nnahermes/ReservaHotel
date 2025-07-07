@@ -1,0 +1,61 @@
+﻿@model ReservaHotel.Models.ViewModels.ReservaViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar Reserva</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Reserva.Id" />
+            <div class="form-group">
+                <label asp-for="Reserva.HospedeId" class="control-label"></label>
+                <select asp-for="Reserva.HospedeId" class="form-control" asp-items="@(new SelectList(Model.Hospedes, "Id", "Nome"))"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reserva.QuartoId" class="control-label"></label>
+                <select asp-for="Reserva.QuartoId" class="form-control" asp-items="@(new SelectList(Model.Quartos, "Id", "Numero"))"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reserva.PacoteId" class="control-label"></label>
+                <select asp-for="Reserva.PacoteId" class="form-control" asp-items="@(new SelectList(Model.Pacotes, "Id", "Nome"))"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reserva.DataEntrada" class="control-label"></label>
+                <input asp-for="Reserva.DataEntrada" class="form-control" />
+                <span asp-validation-for="Reserva.DataEntrada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reserva.DataSaida" class="control-label"></label>
+                <input asp-for="Reserva.DataSaida" class="form-control" />
+                <span asp-validation-for="Reserva.DataSaida" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reserva.QuantidadeDePessoas" class="control-label" type="text"></label>
+                <input asp-for="Reserva.QuantidadeDePessoas" class="form-control" type="text" />
+                <span asp-validation-for="Reserva.QuantidadeDePessoas" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reserva.Status" class="control-label"></label>
+                <select asp-for="Reserva.Status" class="form-control" asp-items="Html.GetEnumSelectList<ReservaHotel.Models.Reserva.StatusReserva>()"></select>
+                <span asp-validation-for="Reserva.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reserva.Observacoes" class="control-label" type="text"></label>
+                <input asp-for="Reserva.Observacoes" class="form-control" type="text" />
+                <span asp-validation-for="Reserva.Observacoes" class="text-danger"></span>
+            </div>
+            <div class="form-group gap-2 mt-3">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary ms-2">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

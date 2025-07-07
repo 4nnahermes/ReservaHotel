@@ -1,0 +1,99 @@
+﻿@model ReservaHotel.Models.Hospede  
+
+@{  
+    ViewData["Title"] = "Detalhes";  
+}  
+
+<h1>Detalhes do Hóspede</h1>  
+<hr />  
+<div class="row g-5">  
+    <div class="col-md-6">  
+        <div class="mb-3">  
+            <span class="text-secondary">Nome:</span> @Model.Nome  
+        </div>  
+        <div class="mb-3">  
+            <span class="text-secondary">CPF:</span> @Model.CPF  
+        </div>  
+        <div class="mb-3">  
+            <span class="text-secondary">Telefone:</span> @Model.Telefone  
+        </div>  
+        <div class="mb-3">  
+            <span class="text-secondary">Email:</span> @Model.Email  
+        </div>  
+        <div class="mb-3">  
+            <span class="text-secondary">Data de Nascimento:</span> @Model.DataNascimento.ToString("dd/MM/yyyy")  
+        </div>  
+        <div class="mb-3">  
+            <span class="text-secondary">Endereço:</span> @Model.Endereco  
+        </div>  
+        <form asp-action="Delete" method="post" class="d-inline">  
+            <input type="hidden" asp-for="Id" />  
+            <input type="submit" value="Deletar" class="btn btn-danger ms-2" onclick="return confirm('Tem certeza que deseja deletar este hóspede?');" />  
+        </form>  
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary ms-2">Editar</a>  
+        <a asp-action="Index" class="btn btn-secondary ms-2">Voltar</a>  
+    </div>  
+    <div class="col-md-6">  
+        <h4 class="mb-3">Análise do hóspede</h4>  
+        <div class="mb-2"><span class="text-secondary">Total de reservas:</span> @ViewData["TotalReservas"]</div>  
+        <div class="mb-2"><span class="text-secondary">Quarto mais reservado:</span> @ViewData["QuartoMaisReservado"]</div>  
+        <div class="mb-2"><span class="text-secondary">Último quarto reservado:</span> @ViewData["UltimoQuartoReservado"]</div>  
+        <div class="mb-2"><span class="text-secondary">Pacote mais comprado:</span> @ViewData["PacoteMaisComprado"]</div>  
+        <div class="mb-2">  
+            <span class="text-secondary">Mês mais reservado:</span>  
+            @{  
+                var mes = (int?)ViewData["MesMaisReservado"];  
+                var nomeMes = mes.HasValue && mes > 0  
+                ? System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(  
+                System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mes.Value))  
+                : "Nenhum";  
+            }  
+            @nomeMes  
+        </div>
+        <div class="mb-2">
+            <span class="text-secondary">Total de diárias acumuladas:</span>
+            @ViewData["TotalDiarias"]
+            (
+            R$ @{
+            var valor = 0.0;
+            if (ViewData["TotalDiariasValor"] != null && double.TryParse(ViewData["TotalDiariasValor"]?.ToString(), out var parsedValor))
+            {
+                valor = parsedValor;
+            }
+            @($"{valor:N2}")
+                        }
+            )
+        </div>
+        @if (ViewData["ReservasSemPacoteAdicional"] is int reservasSemPacoteAdicional && reservasSemPacoteAdicional > 0)  
+        {  
+            <div class="mb-2">  
+                <span class="text-secondary">Reservas sem pacote adicional:</span>  
+                @reservasSemPacoteAdicional  
+            </div>  
+        }  
+        <div class="mb-2"><span class="text-secondary">Data da última reserva:</span> @ViewData["DataUltimaReserva"]</div>  
+        <div class="mb-2"><span class="text-secondary">Média de pessoas por reserva:</span> @ViewData["MediaPessoas"]</div>  
+        <div class="mb-2"><span class="text-secondary">Primeira reserva realizada:</span> @ViewData["PrimeiraReserva"]</div>  
+        <div class="mb-2">
+            <span class="text-secondary">Reservas ativas/futuras:</span>
+            @{
+                var reservasAtivas = ViewData["ReservasAtivas"] as IEnumerable<dynamic>;
+                if (reservasAtivas != null && reservasAtivas.Any())
+                {
+                    <ul class="mb-0 list-unstyled">
+                        @foreach (var r in reservasAtivas)
+                        {
+                            <li>
+                                Reserva #@r.Id - Entrada: @((r.DataEntrada).ToString("dd/MM/yyyy")) - Saída: @((r.DataSaida).ToString("dd/MM/yyyy"))
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span>Nenhuma reserva ativa ou futura</span>
+                }
+            }
+        </div>
+    </div>  
+</div>

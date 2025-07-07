@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ReservaHotel.Models.Funcionario>  
+
+@{  
+    ViewData["Title"] = "Index";  
+}  
+
+<div class="d-flex justify-content-between align-items-end mb-3" style="min-height:3.5rem;">
+    <h1 class="mb-0 py-0" style="font-size:2rem; line-height:1;">Funcionários</h1>
+    <form method="get" class="d-flex" role="search">
+        <input type="text" name="search" class="form-control form-control-sm me-2 w-auto" style="min-width: 300px;" placeholder="Buscar funcionário pelo nome" value="@Context.Request.Query["search"]" />
+        <button type="submit" class="btn btn-outline-primary btn-sm">Buscar</button>
+    </form>
+</div>
+@if (ViewData["Mensagem"] != null)
+{
+    <div class="alert alert-warning">@ViewData["Mensagem"]</div>
+}
+<hr />
+<table class="table">  
+    <thead>  
+        <tr>  
+            <th>  
+                @Html.DisplayNameFor(model => model.Nome)  
+            </th>  
+            <th>  
+                @Html.DisplayNameFor(model => model.CPF)  
+            </th>  
+            <th>  
+                @Html.DisplayNameFor(model => model.Cargo)  
+            </th>  
+            <th>  
+                @Html.DisplayNameFor(model => model.Turno)  
+            </th>  
+            <th></th>  
+        </tr>  
+    </thead>  
+    <tbody>  
+        @foreach (var item in Model)  
+        {  
+            <tr>  
+                <td>  
+                    @Html.DisplayFor(modelItem => item.Nome)  
+                </td>  
+                <td>  
+                    @Html.DisplayFor(modelItem => item.CPF)  
+                </td>  
+                <td>  
+                    @Html.DisplayFor(modelItem => item.Cargo)  
+                </td>  
+                <td>  
+                    @Html.DisplayFor(modelItem => item.Turno)  
+                </td>  
+                <td class="text-end">  
+                    <a asp-action="Edit" class="btn btn-primary btn-sm btn-rounded" asp-route-id="@item.Id">Editar</a>  
+                    <a asp-action="Details" class="btn btn-warning btn-sm btn-rounded" asp-route-id="@item.Id">Detalhes</a>  
+                    <a asp-action="Delete" class="btn btn-danger btn-sm btn-rounded" asp-route-id="@item.Id">Deletar</a>  
+                </td>  
+            </tr>  
+        }  
+    </tbody>  
+</table>  
+<div class="mt-3 text-end">
+    <a asp-action="Create" class="btn btn-success btn-sm">Adicionar Funcionário</a>
+</div>
+<div class="mt-4">  
+    <h4>Análise do quadro de funcionários</h4>  
+    <div class="mb-2">  
+        <span class="text-secondary">Turno com mais funcionários:</span>  
+        @ViewData["TurnoMaisFuncionarios"]  
+    </div>  
+    <div class="mb-2">  
+        <span class="text-secondary">Turno com menos funcionários:</span>  
+        @ViewData["TurnoMenosFuncionarios"]  
+    </div>  
+    <div class="mb-2">  
+        <span class="text-secondary">Total geral de funcionários:</span>  
+        @ViewData["TotalFuncionarios"]  
+    </div>  
+    <div class="mb-2">  
+        <span class="text-secondary">Total de funcionários por cargo:</span>  
+        <ul class="mb-0 list-unstyled">  
+            @if (ViewData["TotalPorCargo"] is Dictionary<ReservaHotel.Models.Funcionario.CargoFuncionario, int> totalPorCargo)  
+            {  
+                foreach (var item in totalPorCargo)  
+                {  
+                    <li>@item.Key: @item.Value</li>  
+                }  
+            }  
+            else  
+            {  
+                <li>Nenhum dado disponível</li>  
+            }  
+        </ul>  
+    </div>  
+</div>

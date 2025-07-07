@@ -1,0 +1,127 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus,
+.form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.navbar .nav-link {
+    color: white;
+    font-weight: 400;
+}
+
+    .navbar .nav-link:hover {
+        color: #ddd;
+    }
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    position: absolute;
+}
+
+.dropdown-menu {
+    margin-top: 0;
+    border-radius: 0;
+}
+
+h1 {
+    margin-top: 2rem;
+}
+
+.btn, .btn-rounded {
+    border-radius: 6px;
+    font-weight: 350;
+}
+
+.navbar-brand {
+    color: #FFD700 !important;
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 4px #00000055;
+}
+
+.table td.text-end {
+    white-space: nowrap;
+}
+
+body.home-background,
+body.login-background {
+    background: url('/hotel.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.login-form-container {
+    background: rgba(255,255,255,0.85);
+    border-radius: 16px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.2);
+    padding: 2rem 2rem;
+}
+
+.login-form-container .form-control {
+    border: 1px solid #adb5bd;
+    box-shadow: none;
+}
+.login-form-container .form-control:focus {
+    border-color: #495057;
+    box-shadow: 0 0 0 0.1rem #49505733;
+}
+
+.login-form-container .form-check-input {
+    border: 1px solid #adb5bd;
+    box-shadow: none;
+}
+.login-form-container .form-check-input:focus {
+    border-color: #495057;
+    box-shadow: 0 0 0 0.1rem #49505733;
+}
+
+.login-form-container .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.login-form-container .btn-primary:hover,
+.login-form-container .btn-primary:focus {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+.login-form-container .login-link {
+    color: #0d6efd;
+    text-decoration: underline;
+    font-weight: 500;
+}
+.login-form-container .login-link:hover,
+.login-form-container .login-link:focus {
+    color: #0a58ca;
+    text-decoration: underline;
+}
+
+.login-links p {
+    margin-bottom: 0.25rem;
+}
+
+.login-links {
+    margin-top: 1.5rem;
+}
+
+.form-vertical-balance {
+    padding-top: 60px;
+}

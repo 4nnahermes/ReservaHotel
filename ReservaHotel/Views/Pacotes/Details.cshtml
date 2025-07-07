@@ -1,0 +1,51 @@
+﻿@model ReservaHotel.Models.Pacote
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes do Pacote</h1>
+<hr />
+<div class="row g-5">
+    <div class="col-md-6">
+        <div class="mb-3">
+            <span class="text-secondary">Nome do pacote:</span> @Model.Nome
+        </div>
+        <div class="mb-3">
+            <span class="text-secondary">Descrição:</span> @Model.Descricao
+        </div>
+        <div class="mb-3">
+            <span class="text-secondary">Valor adicional:</span> @Model.ValorAdicional
+        </div>
+        <form asp-action="Delete" method="post" class="d-inline">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Deletar" class="btn btn-danger ms-2" onclick="return confirm('Tem certeza que deseja deletar este pacote?');" />
+        </form>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary ms-2">Editar</a>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Voltar</a>
+    </div>
+
+    <div class="col-md-6">
+        <h4 class="mb-3">Análise de vendas do pacote</h4>
+        <div class="mb-2">
+            <span class="text-secondary">Total de vendas:</span> @ViewData["TotalCompras"]
+        </div>
+        <div class="mb-2">
+            <span class="text-secondary">Mês com maior volume de vendas:</span>
+            @{
+                var mes = (int?)ViewData["MesMaisComprado"];
+                var nomeMes = mes > 0
+                ? System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
+                System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mes.Value))
+                : "Nenhum";
+            }
+            @nomeMes
+        </div>
+        <div class="mb-2">
+            <span class="text-secondary">Quarto mais combinado:</span> @ViewData["QuartoMaisComprado"]
+        </div>
+        <div class="mb-2">
+            <span class="text-secondary">Receita total gerada:</span> R$ @(ViewData["ValorTotalGerado"])
+        </div>
+    </div>
+</div>

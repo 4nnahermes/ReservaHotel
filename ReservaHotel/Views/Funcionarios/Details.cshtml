@@ -1,0 +1,77 @@
+﻿@model ReservaHotel.Models.Funcionario
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1>Detalhes do Funcionário</h1>
+<hr />
+<div class="row g-5">
+    <div class="col-md-6">
+        <div class="mb-3">
+            <span class="text-secondary">Nome:</span> @Model.Nome
+        </div>
+        <div class="mb-3">
+            <span class="text-secondary">CPF:</span> @Model.CPF
+        </div>
+        <div class="mb-3">
+            <span class="text-secondary">Cargo:</span> @Model.Cargo
+        </div>
+        <div class="mb-3">
+            <span class="text-secondary">Turno:</span> @Model.Turno
+        </div>
+        <form asp-action="Delete" method="post" class="d-inline">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Deletar" class="btn btn-danger ms-2" onclick="return confirm('Tem certeza que deseja deletar este funcionário?');" />
+        </form>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary ms-2">Editar</a>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Voltar</a>
+    </div>
+    <div class="col-md-6">
+        <h4 class="mb-3">Análise do funcionário</h4>
+        <div class="mb-2"><span class="text-secondary">Total de check-ins realizados:</span> @ViewData["TotalCheckIns"]</div>
+        <div class="mb-2"><span class="text-secondary">Total de check-outs realizados:</span> @ViewData["TotalCheckOuts"]</div>
+        <div class="mb-2">
+            <span class="text-secondary">Check-ins realizados:</span>
+            @{
+                var checkIns = ViewData["ListaCheckIns"] as IEnumerable<dynamic>;
+                if (checkIns != null && checkIns.Any())
+                {
+                    <ul class="mb-0 list-unstyled">
+                        @foreach (var c in checkIns)
+                        {
+                            <li>
+                                #@c.Id - @Convert.ToDateTime(c.DataEHora).ToString("dd/MM/yyyy HH:mm")
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span>Nenhum check-in realizado</span>
+                }
+            }
+        </div>
+        <div class="mb-2">
+            <span class="text-secondary">Check-outs realizados:</span>
+            @{
+                var checkOuts = ViewData["ListaCheckOuts"] as IEnumerable<dynamic>;
+                if (checkOuts != null && checkOuts.Any())
+                {
+                    <ul class="mb-0 list-unstyled">
+                        @foreach (var c in checkOuts)
+                        {
+                            <li>
+                                #@c.Id - @Convert.ToDateTime(c.DataEHora).ToString("dd/MM/yyyy HH:mm")
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <span>Nenhum check-out realizado</span>
+                }
+            }
+        </div>
+    </div>
+</div>

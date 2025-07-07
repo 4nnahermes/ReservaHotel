@@ -1,0 +1,51 @@
+﻿@model ReservaHotel.Models.Quarto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar Quarto</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Numero" class="control-label" type="text"></label>
+                <input asp-for="Numero" class="form-control" type="text" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Capacidade" class="control-label"></label>
+                <select asp-for="Capacidade" class="form-control" asp-items="Html.GetEnumSelectList<ReservaHotel.Models.Quarto.CapacidadeQuarto>()"></select>
+                <span asp-validation-for="Capacidade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VelorDiaria" class="control-label"></label>
+                <input asp-for="VelorDiaria" class="form-control" />
+                <span asp-validation-for="VelorDiaria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control" asp-items="Html.GetEnumSelectList<ReservaHotel.Models.Quarto.StatusQuarto>()"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Categoria" class="control-label"></label>
+                <select asp-for="Categoria" class="form-control" asp-items="Html.GetEnumSelectList<ReservaHotel.Models.Quarto.CategoriaQuarto>()"></select>
+                <span asp-validation-for="Categoria" class="text-danger"></span>
+            </div>
+            <div class="form-group gap-2 mt-3">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary ms-2">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

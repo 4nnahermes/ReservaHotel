@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel SESC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ReservaHotel.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand me-4"
+                   href="@(User.Identity.IsAuthenticated? Url.Action("Index", "Home") : Url.Page("/Account/Login", new { area = "Identity" }))">
+                    Hotel SESC
+                </a>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Quartos</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Quartos" asp-action="Create">Adicionar</a>
+                                    <a class="dropdown-item" asp-controller="Quartos" asp-action="Index">Outras opções</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Pacotes</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Pacotes" asp-action="Create">Adicionar</a>
+                                    <a class="dropdown-item" asp-controller="Pacotes" asp-action="Index">Outras opções</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Reservas</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Reservas" asp-action="Create">Adicionar</a>
+                                    <a class="dropdown-item" asp-controller="Reservas" asp-action="Index">Outras opções</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">CheckIn</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="CheckIns" asp-action="Create">Adicionar</a>
+                                    <a class="dropdown-item" asp-controller="CheckIns" asp-action="Index">Outras opções</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">CheckOut</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="CheckOuts" asp-action="Create">Adicionar</a>
+                                    <a class="dropdown-item" asp-controller="CheckOuts" asp-action="Index">Outras opções</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Funcionários</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Funcionarios" asp-action="Adicionar">Criar</a>
+                                    <a class="dropdown-item" asp-controller="Funcionarios" asp-action="Index">Outras opções</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Hóspedes</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Hospedes" asp-action="Create">Adicionar</a>
+                                    <a class="dropdown-item" asp-controller="Hospedes" asp-action="Index">Outras opções</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            @Html.Partial("_LoginPartial")
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-white bg-primary">
+        <div class="container">
+            &copy; 2025 - Hotel SESC
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

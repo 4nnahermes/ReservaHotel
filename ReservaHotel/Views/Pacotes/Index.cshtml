@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ReservaHotel.Models.Pacote>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="d-flex justify-content-between align-items-end mb-3" style="min-height:3.5rem;">
+    <h1 class="mb-0 py-0" style="font-size:2rem; line-height:1;">Pacotes</h1>
+    <form method="get" class="d-flex" role="search">
+        <input type="text" name="search" class="form-control form-control-sm me-2 w-auto" style="min-width: 300px;" placeholder="Buscar pacote pelo nome" value="@Context.Request.Query["search"]" />
+        <button type="submit" class="btn btn-outline-primary btn-sm">Buscar</button>
+    </form>
+</div>
+@if (ViewData["Mensagem"] != null)
+{
+    <div class="alert alert-warning">@ViewData["Mensagem"]</div>
+}
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorAdicional)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorAdicional)
+                </td>
+                <td class="text-end">
+                    <a asp-action="Edit" class="btn btn-primary btn-sm btn-rounded" asp-route-id="@item.Id">Editar</a>
+                    <a asp-action="Details" class="btn btn-warning btn-sm btn-rounded" asp-route-id="@item.Id">Detalhes</a>
+                    <a asp-action="Delete" class="btn btn-danger btn-sm btn-rounded" asp-route-id="@item.Id">Deletar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mt-3 text-end">
+    <a asp-action="Create" class="btn btn-success btn-sm">Adicionar Pacote</a>
+</div>
